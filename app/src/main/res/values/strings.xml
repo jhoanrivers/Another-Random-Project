@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Exercise1</string>
+    <string name="letsscan">Let\'s Scan</string>
+    <string name="label_check_currency">Check Currency</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="check_employee">Check My Employee</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
