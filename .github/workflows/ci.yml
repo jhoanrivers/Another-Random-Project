@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Archive Artifacts
-        if: env.ENVIRONMENT = 'debug'
+        if: env.ENVIRONMENT == 'debug'
         uses: actions/upload-artifact@v2
         with:
           name: debug-artifacts
@@ -39,7 +39,7 @@ jobs:
     steps:
 
       - name: Download artifacts
-        if: env.ENVIRONMENT = 'prod'
+        if: env.ENVIRONMENT == 'prod'
         uses: actions/upload-artifacts@v2
         with:
           name : debug-artifacts
