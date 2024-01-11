@@ -21,6 +21,10 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Create debug-folder
+        if: env.ENVIRONMENT == 'debug'
+        uses: mkdir debug-folder
+
       - name: Archive Artifacts
         if: env.ENVIRONMENT == 'debug'
         uses: actions/upload-artifact@v2
@@ -37,6 +41,10 @@ jobs:
     needs: build
 
     steps:
+
+      - name: Create prod-folder
+        if: env.ENVIRONMENT == 'prod'
+        uses: mkdir prod-folder
 
       - name: Download artifacts
         if: env.ENVIRONMENT == 'prod'
