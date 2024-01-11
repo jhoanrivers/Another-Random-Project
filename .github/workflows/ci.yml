@@ -1,10 +1,15 @@
-name : CI Workflow
+name : CI/CD Workflow
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: 'debug'
 
     steps:
       - name: Checkout Repository
@@ -16,7 +21,26 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Build and Test
-        run: |
-          ./gradlew assembleDebug
-          ./gradlew test
+      - name: Archive Artifacts
+        if: env.ENVIRONMENT = 'debug'
+        uses: actions/upload-artifact@v2
+        with:
+          name: debug-artifacts
+          path: debug-folder
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT : 'prod'
+
+    needs: build
+
+    steps:
+
+      - name: Download artifacts
+        if: env.ENVIRONMENT = 'prod'
+        uses: actions/upload-artifacts@v2
+        with:
+          name : debug-artifacts
+          path: prod-folder
