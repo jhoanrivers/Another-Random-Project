@@ -48,7 +48,7 @@ jobs:
 
       - name: Download artifacts
         if: env.ENVIRONMENT == 'prod'
-        uses: actions/upload-artifacts@v2
+        uses: actions/upload-artifact@v2
         with:
           name : debug-artifacts
           path: prod-folder
