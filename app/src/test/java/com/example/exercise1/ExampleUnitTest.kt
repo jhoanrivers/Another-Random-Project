@@ -20,6 +20,7 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
+import org.mockito.Mockito.lenient
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
@@ -36,7 +37,6 @@ import java.util.Random
 @RunWith(MockitoJUnitRunner::class)
 class ExampleUnitTest {
 
-
     @Mock
     lateinit var apiService: ApiService
 
@@ -44,12 +44,8 @@ class ExampleUnitTest {
 
     lateinit var testViewModel: MainViewModel
 
-
-
-
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
         remoteRepository = RemoteRepositoryImpl(apiService)
         testViewModel = MainViewModel(remoteRepository)
 
@@ -63,7 +59,7 @@ class ExampleUnitTest {
         val someDog = RandomDog("someDog", "success")
 
         val mockedResponse : Response<RandomDog> = Response.success(RandomDog("someDog", "success"))
-        `when`(apiService.getRandomDog()).thenReturn(mockedResponse)
+        lenient(). `when`(apiService.getRandomDog()).thenReturn(mockedResponse)
 
         assertEquals(mockedResponse.body(), someDog)
     }
