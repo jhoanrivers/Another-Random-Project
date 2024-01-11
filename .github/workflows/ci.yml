@@ -23,7 +23,7 @@ jobs:
 
       - name: Create debug-folder
         if: env.ENVIRONMENT == 'debug'
-        uses: mkdir debug-folder
+        run: mkdir debug-folder
 
       - name: Archive Artifacts
         if: env.ENVIRONMENT == 'debug'
@@ -44,7 +44,7 @@ jobs:
 
       - name: Create prod-folder
         if: env.ENVIRONMENT == 'prod'
-        uses: mkdir prod-folder
+        run: mkdir prod-folder
 
       - name: Download artifacts
         if: env.ENVIRONMENT == 'prod'
