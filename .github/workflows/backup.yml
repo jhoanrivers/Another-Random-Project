@@ -1,0 +1,21 @@
+
+name: Backup project when push to master
+
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  copy-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - run: |
+

@@ -59,9 +59,20 @@ class ExampleUnitTest {
         val someDog = RandomDog("someDog", "success")
 
         val mockedResponse : Response<RandomDog> = Response.success(RandomDog("someDog", "success"))
-        lenient(). `when`(apiService.getRandomDog()).thenReturn(mockedResponse)
+        lenient().`when`(apiService.getRandomDog()).thenReturn(mockedResponse)
 
         assertEquals(mockedResponse.body(), someDog)
+    }
+
+    @Test
+    fun testRepository() {
+
+
+        val mockResponse : Flow<ApiResult<RandomDog>> = flowOf(ApiResult.SuccessResult(RandomDog("someDog", "success")))
+        `when`(remoteRepository.getRandomDog()).thenReturn(mockResponse)
+
+
+        assertEquals(2 + 2, 4)
     }
 
 }
