@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: 'debug'
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -21,34 +18,13 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Create debug-folder
-        if: env.ENVIRONMENT == 'debug'
-        run: mkdir debug-folder
+      - name: Build apk debug
+        run: ./gradlew assembleDebug
 
-      - name: Archive Artifacts
-        if: env.ENVIRONMENT == 'debug'
+      - name: Achieved APK
         uses: actions/upload-artifact@v2
         with:
-          name: debug-artifact
-          path: debug-folder
+          name: debug-apk
+          path: app/build/outputs/apk/debug/**
 
 
-  deploy:
-    runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT : 'prod'
-
-    needs: build
-
-    steps:
-
-      - name: Create prod-folder
-        if: env.ENVIRONMENT == 'prod'
-        run: mkdir prod-folder
-
-      - name: Download artifacts
-        if: env.ENVIRONMENT == 'prod'
-        uses: actions/upload-artifact@v2
-        with:
-          name : debug-artifact
-          path: prod-folder
